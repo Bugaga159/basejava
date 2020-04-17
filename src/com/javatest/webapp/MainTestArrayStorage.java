@@ -1,5 +1,10 @@
+package com.javatest.webapp;
+
+import com.javatest.webapp.model.Resume;
+import com.javatest.webapp.storage.ArrayStorage;
+
 /**
- * Test for your ArrayStorage implementation
+ * Test for your com.javatest.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
