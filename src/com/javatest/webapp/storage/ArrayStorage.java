@@ -7,9 +7,11 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    protected Resume[] storage = new Resume[10000];
-    protected int size = 0;
+public class ArrayStorage implements Storage{
+    private static final int STORAGE_LIMIT = 10000;
+
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
+    private int size = 0;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
