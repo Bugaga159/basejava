@@ -1,5 +1,5 @@
 package com.javatest.webapp.storage;
-cre
+
 import com.javatest.webapp.model.Resume;
 
 /**
@@ -13,46 +13,47 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
+        size = 0;
     }
 
     public void update(Resume r) {
-        Resume res = get(r.uuid);
-        if (res != null) {
-
+        int index = getIndex(r.getUuid());
+        if (index == -1) {
+            System.out.println("ERROR! Resume" + r.getUuid() + "not exist!");
+        } else {
+            storage[index] = r;
         }
-
     }
 
     public void save(Resume r) {
-        Resume res = get(r.uuid);
-        if (res != null) {
+        if (getIndex(r.getUuid()) != -1) {
+            System.out.println("ERROR! Resume" + r.getUuid() + "already exist!");
+        } else if (size == storage.length) {
+            System.out.println("Storage overflow!");
+        } else {
             storage[size] = r;
             size++;
         }
-
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid)) {
-                return storage[i];
-            }
+        int indexUuid = getIndex(uuid);
+        if (indexUuid == -1) {
+            System.out.println("ERROR! Resume " + uuid + "not exist!");
+            return null;
         }
-        return null;
+        return storage[indexUuid];
     }
 
     public void delete(String uuid) {
-        Resume res = get(uuid);
-        if (res != null) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].toString().equals(uuid)) {
-                    storage[i] = storage[size - 1];
-                    storage[size - 1] = null;
-                    size--;
-                }
-            }
+        int indexUuid = getIndex(uuid);
+        if (indexUuid == -1) {
+            System.out.println("ERROR!");
+        } else {
+            storage[indexUuid] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
-
     }
 
     /**
@@ -68,5 +69,14 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    protected int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].toString().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
