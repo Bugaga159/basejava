@@ -2,9 +2,11 @@ package com.javatest.webapp.storage;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ArrayStorageTest extends AbstractArrayStorageTest{
+
+    public ArrayStorageTest(Storage storage) {
+        super(storage);
+    }
 
     @Test
     public void fillDeletedElement() {
